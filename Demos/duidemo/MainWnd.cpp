@@ -169,7 +169,8 @@ void CMainWnd::InitWindow()
 	}
 
 	CTreeViewUI* pTreeView = static_cast<CTreeViewUI*>(m_pm.FindControl(_T("treeview")));
-
+	pTreeView->SetItemExpand(false, NULL);
+	pTreeView->SetVisibleCheckBtn(true);
 	CTreeNodeUI* pItem  = new CTreeNodeUI();
 	pItem->SetFixedHeight(30);
 	pItem->SetItemText(_T("¶¯Ì¬Ìí¼Ó"));

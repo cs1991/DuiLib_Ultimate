@@ -19,7 +19,7 @@ namespace DuiLib
 	public:
 		CTreeNodeUI(CTreeNodeUI* _ParentNode = NULL);
 		~CTreeNodeUI(void);
-
+	
 	public:
 		LPCTSTR GetClass() const;
 		LPVOID GetInterface(LPCTSTR pstrName);
@@ -102,7 +102,8 @@ namespace DuiLib
 	public:
 		CTreeViewUI(void);
 		~CTreeViewUI(void);
-
+	private:
+		virtual bool SetParentItemCheckBox(bool _Selected, CTreeNodeUI* _TreeNode);
 	public:
 		virtual LPCTSTR GetClass() const;
 		virtual LPVOID	GetInterface(LPCTSTR pstrName);

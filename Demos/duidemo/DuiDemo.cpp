@@ -98,7 +98,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
 	InitResource();
 
 
-	CSplashWnd::MessageBox(NULL);
+	//CSplashWnd::MessageBox(NULL);
 
 	// 创建主窗口
 	CMainWnd* pMainWnd = new CMainWnd();

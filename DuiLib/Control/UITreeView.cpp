@@ -1034,6 +1034,8 @@ namespace DuiLib
 						SetItemCheckBox(_Selected,pItem);
 				}
 			}
+			//判断上级节点是否已经全部选中，或者从全部选中改成未全部选中
+			SetParentItemCheckBox(_Selected, _TreeNode);
 			return TRUE;
 		}
 		else {
@@ -1051,7 +1053,42 @@ namespace DuiLib
 		}
 		return FALSE;
 	}
-
+	//************************************
+	// 函数名称: SetParentItemCheckBox
+	// 返回类型: void
+	// 参数信息: bool _Selected
+	// 参数信息: CTreeNodeUI * _TreeNode
+	// 函数说明: //判断上级节点是否已经全部选中，或者从全部选中改成未全部选中
+	//************************************
+	bool CTreeViewUI::SetParentItemCheckBox(bool _Selected, CTreeNodeUI* _TreeNode) {
+		if (!_TreeNode) {
+			return false;
+		}
+		CTreeNodeUI* parentNode = _TreeNode->GetParentNode();
+		if (!parentNode) {
+			return true;
+		}
+		if (!_Selected) {
+			parentNode->GetCheckBox()->Selected(_Selected, false);
+			SetParentItemCheckBox(_Selected, parentNode);
+			return true;
+		}
+		//子item从未选中，变成选中，需要一级一级往上判断
+		if (parentNode->GetCountChild() > 0) {
+			int nCount = parentNode->GetCountChild();
+			bool bAllChecked = true;
+			for (int nIndex = 0; nIndex < nCount; nIndex++) {
+				CTreeNodeUI* pItem = parentNode->GetChildNode(nIndex);
+				if (!pItem->GetCheckBox()->GetCheck()) {
+					bAllChecked = false;
+					break;
+				}
+			}
+			parentNode->GetCheckBox()->Selected(bAllChecked,false);
+			SetParentItemCheckBox(bAllChecked, parentNode);
+		}
+		return false;
+	}
 	//************************************
 	// 函数名称: SetItemExpand
 	// 返回类型: void
